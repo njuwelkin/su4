@@ -30,3 +30,4 @@ output/words_1.txt: gen_words.py res/all_songci_cut.txt
 
 clean:
 	rm output/*
+
