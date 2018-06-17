@@ -25,6 +25,7 @@ for i in range(processed_lines):
             d[w] = 1
         else:
             d[w] += 1
+f.close()
 
 d = OrderedDict(sorted(d.items(), key=lambda t: t[1], reverse=True))
 

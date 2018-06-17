@@ -1,6 +1,6 @@
 import numpy as np
 from scipy import sparse 
-import loader
+import utils.loader as loader
 
 
 class Relevancy(object):
@@ -8,7 +8,7 @@ class Relevancy(object):
         # ww: N * N
         self._ww = np.load('./output/w_w.npy')
 
-        self.words = loader.loadDictFromFreqFile('./res/word_dict.txt')
+        self.words = loader.loadKeyValues('./res/words_pzy.txt')
         self.word_idx = {k: i for i, (k,v) in enumerate(self.words.items())}
         self.word_itmes = list(self.words.keys())
 
@@ -33,32 +33,41 @@ class Relevancy(object):
             return []
         return self._ww[i, j]
 
-    def _get_candidates(self, i, word_len=2, threshold=1):
-        assert(threshold >= 1)
-        s, e = self.seg_start[word_len], self.seg_end[word_len]
+    def _get_candidates(self, i, threshold=0, word_len=-1):
+        assert(threshold >= 0)
+        if word_len > 0:
+            s, e = self.seg_start[word_len], self.seg_end[word_len]
+        else:
+            s, e = 0, len(self.word_itmes)
         w = self._ww[i][s:e].copy()
         idx = np.argsort(-w)
         w = -np.sort(-w)
-        end_idx = np.where(w==(threshold-1))[0].min()
+        end_idx = np.where(w<=threshold)[0].min()
         return idx[:end_idx]
         
-    def get_candidates(self, x, word_len=2, threshold=1):
+    def get_candidates(self, x, threshold=0, word_len=-1):
         i = self.word_idx.get(x)
         if i is None:
             return []
-        idx = self._get_candidates(i, word_len, threshold)
-        return [(self.word_itmes[j+self.seg_start[word_len]], self._ww[i, j+self.seg_start[word_len]]) for j in idx]
+        idx = self._get_candidates(i, threshold, word_len)
+        if word_len < 0:
+            return [(self.word_itmes[j], self._ww[i, j]) for j in idx]
+        else:
+            return [(self.word_itmes[j+self.seg_start[word_len]], self._ww[i, j+self.seg_start[word_len]]) for j in idx]
 
 if __name__ == '__main__':
     p = Relevancy()
-    print(p.get_relevancy('东风', '赤壁'))
-    ret = p.get_candidates('赤壁')
-    print(ret)
-    print(len(ret))
-    ret = p.get_candidates('赤壁', 3)
-    print(ret)
-    print(len(ret))
-    ret = p.get_candidates('赤壁', 1, 1)
+    #print(p.get_relevancy('东风', '赤壁'))
+    #ret = p.get_candidates('赤壁', 2, 0.001)
+    #print(ret)
+    #print(len(ret))
+    #ret = p.get_candidates('赤壁', 0.001, 3)
+    #print(ret)
+    #print(len(ret))
+    #ret = p.get_candidates('赤壁', 0.001, 1)
+    #print(ret)
+    #print(len(ret))
+    ret = p.get_candidates('赤壁', 0.001)
     print(ret)
     print(len(ret))
     #ret = p.get_candidates('东风')

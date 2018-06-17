@@ -1,11 +1,11 @@
 import numpy as np
-from loader import *
+from utils.loader import *
 
-dict_words = loadKeyFromPZYDict('./res/dict_pzy.txt')
+dict_words = loadKeyValues('./res/words_pzy.txt')
 word_idx = {k: i for i, k in enumerate(dict_words)}
 
 
-cs = loadAllSongci("./res/allSongCi.txt")
+cs = loadAllCutSongci("./res/all_songci_cut.txt")
 
 
 cs_len = len(cs)
@@ -28,6 +28,6 @@ for i, c in enumerate(cs):
             print(word_idx[w], i, w)
             count_s += 1
 
-
+np.save("./output/w_c.npy", mat)
 print(cs_len, word_len)
 print(count_s, count_f)
