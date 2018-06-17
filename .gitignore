@@ -104,4 +104,6 @@ venv.bak/
 .mypy_cache/
 .DS_Store
 gen_dict/output/
-output/
+su4/output/
+su4/res/
+

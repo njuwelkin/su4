@@ -27,6 +27,9 @@ def loadYunDict(path):
 def loadPZDict(path):
     return _loadKeyValue(path)
 
+def loadPZYDict(path):
+    return _loadKeyValues(path)
+
 def _loadKeyValue(path):
     f = open(path, "r")
     d = {}

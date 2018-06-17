@@ -6,7 +6,7 @@ import utils.loader as loader
 class Relevancy(object):
     def __init__(self):
         # ww: N * N
-        self._ww = np.load('./output/w_w.npy')
+        self._ww = np.load('./res/w_w.npy')
 
         self.words = loader.loadKeyValues('./res/words_pzy.txt')
         self.word_idx = {k: i for i, (k,v) in enumerate(self.words.items())}
@@ -55,8 +55,15 @@ class Relevancy(object):
         else:
             return [(self.word_itmes[j+self.seg_start[word_len]], self._ww[i, j+self.seg_start[word_len]]) for j in idx]
 
+    _instance = None
+    @classmethod
+    def getInstance(cls):
+        if cls._instance is None:
+            cls._instance = cls()
+        return cls._instance
+
 if __name__ == '__main__':
-    p = Relevancy()
+    p = Relevancy.getInstance()
     #print(p.get_relevancy('东风', '赤壁'))
     #ret = p.get_candidates('赤壁', 2, 0.001)
     #print(ret)

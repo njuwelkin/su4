@@ -1,5 +1,20 @@
-all: output/words_pzy.txt
+all: ../su4/res/words_pzy.txt ../su4/res/w_w.npy
 	echo "Done"
+
+# copy to su4 work folder
+../su4/res/w_w.npy: output/w_w.npy
+	cp output/w_w.npy ../su4/res/
+
+../su4/res/words_pzy.txt: output/words_pzy.txt
+	cp output/words_pzy.txt ../su4/res/
+
+# word to word matrix
+output/w_w.npy: calc_cos.py output/w_c.npy
+	python calc_cos.py
+
+# word to ci matrix
+output/w_c.npy: matrix.py output/words_pzy.txt res/all_songci_cut.txt
+	python matrix.py
 
 # P Z Y for each word
 output/words_pzy.txt: gen_pzy_dict.py output/char_yun.txt output/char_pz_new.txt output/words_freq.txt
