@@ -1,12 +1,16 @@
 import numpy as np
 from scipy import sparse 
 
+import os, sys
+utils_path = os.path.dirname(os.path.abspath(__file__)) + "/../utils"
+sys.path.append(utils_path)
+import sparse_matrix
+
 # mat: N * M
-mat = np.load('./output/w_c.npy')
-
-mat=np.array(mat, np.float32)
-coo=sparse.coo_matrix(mat)
-
+#mat = np.load('./output/w_c.npy')
+#coo=sparse.coo_matrix(mat)
+coo = sparse_matrix.load_sparse_csr("./output/w_c.npy.npz")
+mat = coo.toarray()
 
 # ww: N * N
 ww = coo.dot(coo.T).toarray()
@@ -25,4 +29,6 @@ tmp = 1-np.eye(ww.shape[0])
 ww *= tmp
 
 
-np.save('./output/w_w.npy', ww)
+#np.save('./output/w_w.npy', ww)
+coo = sparse.csr_matrix(ww)
+sparse_matrix.save_sparse_csr('./output/w_w.npy', coo)

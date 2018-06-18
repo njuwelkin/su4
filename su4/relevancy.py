@@ -2,11 +2,15 @@ import numpy as np
 from scipy import sparse 
 import utils.loader as loader
 
+import os, sys
+utils_path = os.path.dirname(os.path.abspath(__file__)) + "/../utils"
+sys.path.append(utils_path)
+import sparse_matrix
 
 class Relevancy(object):
     def __init__(self):
         # ww: N * N
-        self._ww = np.load('./res/w_w.npy')
+        self._ww = sparse_matrix.load_sparse_csr("./res/w_w.npy.npz").toarray()
 
         self.words = loader.loadKeyValues('./res/words_pzy.txt')
         self.word_idx = {k: i for i, (k,v) in enumerate(self.words.items())}

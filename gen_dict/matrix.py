@@ -1,5 +1,11 @@
 import numpy as np
 from loader import *
+from scipy import sparse
+
+import os, sys
+utils_path = os.path.dirname(os.path.abspath(__file__)) + os.path.sep + "/../utils"
+sys.path.append(utils_path)
+import sparse_matrix
 
 
 def loadAllCutSongci(path):
@@ -35,6 +41,10 @@ for i, c in enumerate(cs):
             #print(word_idx[w], i, w)
             count_s += 1
 
-np.save("./output/w_c.npy", mat)
+#np.save("./output/w_c.npy", mat)
 print(cs_len, word_len)
 print(count_s, count_f)
+
+coo = sparse.csr_matrix(mat)
+sparse_matrix.save_sparse_csr("./output/w_c.npy", coo)
+
