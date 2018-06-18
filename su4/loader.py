@@ -19,13 +19,5 @@ def loadKeyValues(path):
     f.close()
     return d
 
-def loadAllCutSongci(path):
-    f = open(path, "r")
-    lines = f.readlines()
-    cs = "".join(lines).split("$/$/$/34567/$/$/$/")
-    f.close()
-    print(len(cs))
-    return cs
-
 if __name__ == '__main__':
     print(loadAllCutSongci("./res/all_songci_cut.txt"))

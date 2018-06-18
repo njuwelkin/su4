@@ -1,10 +1,9 @@
 import numpy as np
 from scipy import sparse 
-import utils.loader as loader
+import loader
 
-import os, sys
-utils_path = os.path.dirname(os.path.abspath(__file__)) + "/../utils"
-sys.path.append(utils_path)
+from path_util import *
+addModulePath(__file__)
 import sparse_matrix
 
 class Relevancy(object):
