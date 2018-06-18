@@ -34,11 +34,15 @@ def getYunPart(s):
         if s[0] in ['j', 'q', 'x', 'y'] and yun[0] == 'u':
             yun = yun.replace('u', 'v')
 
-        if s[0] in ['y'] and yun == 'e':
-            yun = 'ie'
+        if s[0] in ['y']:
+            if yun == 'e':
+                yun = 'ie'
+            elif yun == 'an':
+                yun = 'ian'
 
         if s[0] not in ['z', 'c', 's', 'r'] and yun == 'i':
             yun = 'ii'
+
         return yun
     else:
         return s

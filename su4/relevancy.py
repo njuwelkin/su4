@@ -10,6 +10,7 @@ class Relevancy(object):
     def __init__(self):
         # ww: N * N
         self._ww = sparse_matrix.load_sparse_csr("./res/w_w.npy.npz").toarray()
+        #self._ww = sparse_matrix.load_sparse_csr("./res/sim.npy.npz").toarray()
 
         self.words = loader.loadKeyValues('./res/words_pzy.txt')
         self.word_idx = {k: i for i, (k,v) in enumerate(self.words.items())}
@@ -71,6 +72,6 @@ if __name__ == '__main__':
     #ret = p.get_candidates('赤壁', 0.001)
     #print(ret)
     #print(len(ret))
-    ret = p.get_candidates(sys.argv[1], 0.05)
+    ret = p.get_candidates(sys.argv[1], 0.001)
     print(ret)
     print(len(ret))

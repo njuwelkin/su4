@@ -8,6 +8,13 @@ all: ../su4/res/words_pzy.txt ../su4/res/w_w.npy.npz
 ../su4/res/words_pzy.txt: output/words_pzy.txt
 	cp output/words_pzy.txt ../su4/res/
 
+../su4/res/sim.npy.npz: output/sim.npy.npz
+	cp output/sim.npy.npz ../su4/res/
+
+# sim matrix
+output/sim.npy.npz:sim_matrix.py output/words_freq.txt res/all_songci_cut.txt
+	python sim_matrix.py
+
 # word to word matrix
 output/w_w.npy.npz: calc_cos.py output/w_c.npy.npz
 	python calc_cos.py
