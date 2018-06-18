@@ -21,5 +21,8 @@ for i in range(len(v2)):
 for j in range(len(v2)):
     ww[:, j] /= v2[j]
 
+tmp = 1-np.eye(ww.shape[0])
+ww *= tmp
+
 
 np.save('./output/w_w.npy', ww)

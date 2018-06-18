@@ -63,20 +63,11 @@ class Relevancy(object):
         return cls._instance
 
 if __name__ == '__main__':
+    import sys
     p = Relevancy.getInstance()
-    #print(p.get_relevancy('东风', '赤壁'))
-    #ret = p.get_candidates('赤壁', 2, 0.001)
+    #ret = p.get_candidates('赤壁', 0.001)
     #print(ret)
     #print(len(ret))
-    #ret = p.get_candidates('赤壁', 0.001, 3)
-    #print(ret)
-    #print(len(ret))
-    #ret = p.get_candidates('赤壁', 0.001, 1)
-    #print(ret)
-    #print(len(ret))
-    ret = p.get_candidates('赤壁', 0.001)
+    ret = p.get_candidates(sys.argv[1], 0.05)
     print(ret)
     print(len(ret))
-    #ret = p.get_candidates('东风')
-    #print(ret)
-    #print(len(ret))
