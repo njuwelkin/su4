@@ -31,7 +31,7 @@ class WordCandidate(object):
                 return False
         return True
 
-    def _getCandidates(self, pz, yun):
+    def _getCandidates(self, pz, yun=None):
         cache_key = "%s_%s" % (pz, yun)
         if self._cache.get(cache_key) is not None:
             return self._cache[cache_key]
@@ -40,7 +40,7 @@ class WordCandidate(object):
         for k in self.pz_tables.keys():
             if self._match(pz, k):
                 w_y += self.pz_tables[k]
-        if yun >= 0:
+        if yun is not None:
             ret = set()
             for i in w_y:
                 if str(yun) in i[1]:
@@ -51,9 +51,9 @@ class WordCandidate(object):
         self._cache[cache_key] = ret
         return ret
 
-    def getRandomWord(self, pz, yun):
+    def getRandomWord(self, pz, yun=None):
         ret = self._getCandidates(pz, yun)
-        return ret[random.randomint(0, len(ret))]
+        return list(ret)[random.randint(0, len(ret)-1)]
 
     
 
