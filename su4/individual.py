@@ -35,6 +35,6 @@ if __name__ == '__main__':
     from cipai import *
     cp = CiPattern(qpy1)
     wg = WordGenerator()
-    candidates = wg.getCandidates(['周郎'])
+    candidates = wg.getCandidates(['周郎'], 2000)
     indv = Individual(cp, candidates)
     print(indv)
