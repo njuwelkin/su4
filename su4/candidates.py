@@ -11,7 +11,8 @@ class WordCandidate(object):
         self.yun_tables = {}
         self.pos_tables = {}
         self._cache = {}
-        for k, v in pzy_dict.items():
+        for k in candidates:
+            v = pzy_dict[k]
             self._add_to_table(k, v)
         #print(self.pz_tables)
 
@@ -93,4 +94,4 @@ if __name__ == "__main__":
     ret = wg.getCandidates(sys.argv[1:], 2000)
     #print("\n".join(ret))
     #print(len(ret))
-    print(ret._getCandidates('00', 2))
+    print(ret._getCandidates('00', 11))
