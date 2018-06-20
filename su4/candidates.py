@@ -26,7 +26,7 @@ class WordCandidate(object):
                 self.yun_tables[y] = set()
             self.yun_tables[y].add(k)
 
-    def _match(self, pattern, instance):
+    def _match_pz(self, pattern, instance):
         if len(pattern) != len(instance):
             return False
         for i in range(len(pattern)):
@@ -41,7 +41,7 @@ class WordCandidate(object):
 
         ret = set()
         for k in self.pz_tables.keys():
-            if self._match(pz, k):
+            if self._match_pz(pz, k):
                 ret |= self.pz_tables[k]
         if yun is not None:
             ret_yun = self.yun_tables[str(yun)]
@@ -82,14 +82,6 @@ class WordGenerator(object):
                     if quantity == 0:
                         return d.keys()
 
-    def _init_ret(self):
-        self.pz = {'0':[], '1':[], '*':[]}
-        l = ['0', '1', '*']
-        for i in l:
-            for j in l:
-                self.pz[i+j] = []
-        return pz
-
     def getCandidates(self, seeds, quantity= 5000):
         candidates = self._getCandidates(seeds, quantity)
         return WordCandidate(candidates)
@@ -98,7 +90,7 @@ class WordGenerator(object):
 if __name__ == "__main__":
     import sys
     wg = WordGenerator()
-    ret = wg.getCandidates(sys.argv[1:])
+    ret = wg.getCandidates(sys.argv[1:], 2000)
     #print("\n".join(ret))
     #print(len(ret))
-    print(ret._getCandidates('00', 11))
+    print(ret._getCandidates('00', 2))
