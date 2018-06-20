@@ -7,21 +7,24 @@ class WordCandidate(object):
     pzy_dict = loader.loadKeyValues('./res/words_pzy.txt')
     def __init__(self, candidates):
         pzy_dict = self.__class__.pzy_dict
-        self.pz_tables = {'0':[], '1':[], '*':[]}
-        l = ['0', '1', '*']
-        for i in l:
-            for j in l:
-                self.pz_tables[i+j] = []
-        for i in l:
-            for j in l:
-                for k in l:
-                    self.pz_tables[i+j+k] = []
-        for c in candidates:
-            item = pzy_dict[c]
-            yun = item[1:]
-            self.pz_tables[item[0]].append((c, yun))
-        #print(self.pz_tables)
+        self.pz_tables = {}
+        self.yun_tables = {}
+        self.pos_tables = {}
         self._cache = {}
+        for k, v in pzy_dict.items():
+            self._add_to_table(k, v)
+        #print(self.pz_tables)
+
+    def _add_to_table(self, k, v):
+        pz = v[0]
+        yuns = v[1:]
+        if self.pz_tables.get(pz) is None:
+            self.pz_tables[pz] = set()
+        self.pz_tables[pz].add(k)
+        for y in yuns:
+            if self.yun_tables.get(y) is None:
+                self.yun_tables[y] = set()
+            self.yun_tables[y].add(k)
 
     def _match(self, pattern, instance):
         if len(pattern) != len(instance):
@@ -36,17 +39,13 @@ class WordCandidate(object):
         if self._cache.get(cache_key) is not None:
             return self._cache[cache_key]
 
-        w_y = []
+        ret = set()
         for k in self.pz_tables.keys():
             if self._match(pz, k):
-                w_y += self.pz_tables[k]
+                ret |= self.pz_tables[k]
         if yun is not None:
-            ret = set()
-            for i in w_y:
-                if str(yun) in i[1]:
-                    ret.add(i[0])
-        else:
-            ret = set([k for k, y in w_y])
+            ret_yun = self.yun_tables[str(yun)]
+            ret &= ret_yun
 
         self._cache[cache_key] = ret
         return ret
@@ -91,7 +90,7 @@ class WordGenerator(object):
                 self.pz[i+j] = []
         return pz
 
-    def getCandidates(self, seeds, quantity= 6000):
+    def getCandidates(self, seeds, quantity= 5000):
         candidates = self._getCandidates(seeds, quantity)
         return WordCandidate(candidates)
 
