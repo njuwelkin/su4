@@ -5,18 +5,22 @@ import random
 
 class WordCandidate(object):
     pzy_dict = loader.loadKeyValues('./res/words_pzy.txt')
+    pos_dict = loader.loadKeyValues('./res/words_pos.txt')
     def __init__(self, candidates):
         pzy_dict = self.__class__.pzy_dict
+        pos_dict = self.__class__.pos_dict
         self.pz_tables = {}
         self.yun_tables = {}
         self.pos_tables = {}
         self._cache = {}
         for k in candidates:
             v = pzy_dict[k]
-            self._add_to_table(k, v)
+            self._add_to_pzy_table(k, v)
+            v2 = pos_dict[k]
+            self._add_to_pos_table(k, v2)
         #print(self.pz_tables)
 
-    def _add_to_table(self, k, v):
+    def _add_to_pzy_table(self, k, v):
         pz = v[0]
         yuns = v[1:]
         if self.pz_tables.get(pz) is None:
@@ -27,6 +31,15 @@ class WordCandidate(object):
                 self.yun_tables[y] = set()
             self.yun_tables[y].add(k)
 
+    def _add_to_pos_table(self, k, v):
+        if len(v) == 1:
+            return
+        pos = v[1:]
+        for p in pos:
+            if self.pos_tables.get(p) is None:
+                self.pos_tables[p] = set()
+            self.pos_tables[p].add(k)
+
     def _match_pz(self, pattern, instance):
         if len(pattern) != len(instance):
             return False
@@ -35,8 +48,17 @@ class WordCandidate(object):
                 return False
         return True
 
-    def _getCandidates(self, pz, yun=None):
-        cache_key = "%s_%s" % (pz, yun)
+    def _match_pos(self, req, candidate):
+        d = {
+            'n': ['ns', 'nr'],
+            's': ['ns'],
+            'w': ['wr', 'ws', 'wt'],
+            'v': ['vi', 'vt']
+        }
+        return (req == candidate) or ((d.get(req) is not None) and (d[req].count(candidate) > 0))
+
+    def _getCandidates(self, pz, yun, pos):
+        cache_key = "%s_%s_%s" % (pz, yun, pos)
         if self._cache.get(cache_key) is not None:
             return self._cache[cache_key]
 
@@ -44,15 +66,23 @@ class WordCandidate(object):
         for k in self.pz_tables.keys():
             if self._match_pz(pz, k):
                 ret |= self.pz_tables[k]
+
         if yun is not None:
             ret_yun = self.yun_tables[str(yun)]
             ret &= ret_yun
 
+        if pos is not None:
+            ret_pos = set()
+            for k in self.pos_tables.keys():
+                if self._match_pos(pos, k):
+                    ret_pos |= self.pos_tables[k]
+            ret &= ret_pos
+
         self._cache[cache_key] = ret
         return ret
 
-    def getRandomWord(self, pz, yun=None):
-        ret = self._getCandidates(pz, yun)
+    def getRandomWord(self, pz, yun=None, pos=None):
+        ret = self._getCandidates(pz, yun, pos)
         return list(ret)[random.randint(0, len(ret)-1)]
 
     
@@ -91,7 +121,8 @@ class WordGenerator(object):
 if __name__ == "__main__":
     import sys
     wg = WordGenerator()
-    ret = wg.getCandidates(sys.argv[1:], 2000)
+    ret = wg.getCandidates(sys.argv[1:], 5000)
     #print("\n".join(ret))
     #print(len(ret))
-    print(ret._getCandidates('00', 11))
+    print(ret.pos_tables.keys())
+    print(ret._getCandidates('00', 11, 'n'))

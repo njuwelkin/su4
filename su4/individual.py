@@ -8,19 +8,16 @@ class Individual(object):
 
         for pline in pattern.lines:
             line = []
-            for i in range(len(pline[0]) - 1):
-                pz = pline[0][i]
-                line.append(candidates.getRandomWord(pz))
-            pz = pline[0][i+1]
-            word = self._get_random_word(pz, pline[1])
-            line.append(word)
+            for p in pline:
+                pz, pos, yun= p
+                line.append(self._get_random_word(pz, yun, pos))
             lines.append(line)
 
         self.lines = lines
 
-    def _get_random_word(self, pz, yun):
+    def _get_random_word(self, pz, yun, pos):
         while True:
-            word = candidates.getRandomWord(pz, yun)
+            word = candidates.getRandomWord(pz, yun, pos)
             if self.words.get(word) is None:
                 self.words[word] = 1
             return word
@@ -33,8 +30,8 @@ class Individual(object):
 if __name__ == '__main__':
     from candidates import *
     from cipai import *
-    cp = CiPattern(qpy1)
+    cp = CiPattern(fqyb, fqyb_grammar)
     wg = WordGenerator()
-    candidates = wg.getCandidates(['周郎'], 2000)
+    candidates = wg.getCandidates(['周郎'], 8000)
     indv = Individual(cp, candidates)
     print(indv)
