@@ -17,7 +17,7 @@ output/sim.npy.npz:sim_matrix.py output/words_freq.txt res/all_songci_cut.txt
 
 # word to word matrix
 output/w_w.npy.npz: calc_cos.py output/w_c.npy.npz
-	python calc_cos.py
+	python calc_cos.py ./output/w_c.npy.npz ./output/w_w.npy
 
 # word to ci matrix
 output/w_c.npy.npz: matrix.py output/words_pzy.txt res/all_songci_cut.txt

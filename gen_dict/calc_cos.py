@@ -2,14 +2,18 @@ import numpy as np
 from scipy import sparse 
 
 import os, sys
+
+assert(len(sys.argv) == 3)
+in_path = sys.argv[1]
+out_path = sys.argv[2]
+
 utils_path = os.path.dirname(os.path.abspath(__file__)) + "/../utils"
 sys.path.append(utils_path)
 import sparse_matrix
 
 # mat: N * M
-#mat = np.load('./output/w_c.npy')
-#coo=sparse.coo_matrix(mat)
-coo = sparse_matrix.load_sparse_csr("./output/w_c.npy.npz")
+#coo = sparse_matrix.load_sparse_csr("./output/w_c.npy.npz")
+coo = sparse_matrix.load_sparse_csr(in_path)
 mat = coo.toarray()
 
 # ww: N * N
@@ -31,4 +35,5 @@ ww *= tmp
 
 #np.save('./output/w_w.npy', ww)
 coo = sparse.csr_matrix(ww)
-sparse_matrix.save_sparse_csr('./output/w_w.npy', coo)
+#sparse_matrix.save_sparse_csr('./output/w_w.npy', coo)
+sparse_matrix.save_sparse_csr(out_path, coo)

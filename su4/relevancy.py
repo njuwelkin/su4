@@ -72,6 +72,6 @@ if __name__ == '__main__':
     #ret = p.get_candidates('赤壁', 0.001)
     #print(ret)
     #print(len(ret))
-    ret = p.get_candidates(sys.argv[1], 0.001)
+    ret = p.get_candidates(sys.argv[1], 0.05)
     print(ret)
     print(len(ret))

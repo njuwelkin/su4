@@ -50,10 +50,16 @@ class WordCandidate(object):
 
     def _match_pos(self, req, candidate):
         d = {
-            'n': ['ns', 'nr'],
+            'n': ['ns', 'nr', 'sn'],
+            'a': ['ae', 'af', 'an'],
+            'ae': ['a'],
+            'af': ['a', 'an'],
             's': ['ns'],
             'w': ['wr', 'ws', 'wt'],
-            'v': ['vi', 'vt']
+            'v': ['vi', 'vt'],
+            'vi': ['ae', 'a', 'v'],
+            'vt': ['v'],
+            'n-vi': ['n-a'],
         }
         return (req == candidate) or ((d.get(req) is not None) and (d[req].count(candidate) > 0))
 
@@ -83,6 +89,8 @@ class WordCandidate(object):
 
     def getRandomWord(self, pz, yun=None, pos=None):
         ret = self._getCandidates(pz, yun, pos)
+        #if len(list(ret)) == 0:
+        #    print(pz, yun, pos)
         return list(ret)[random.randint(0, len(ret)-1)]
 
     
@@ -115,14 +123,15 @@ class WordGenerator(object):
 
     def getCandidates(self, seeds, quantity= 5000):
         candidates = self._getCandidates(seeds, quantity)
+        #print(candidates)
         return WordCandidate(candidates)
 
 
 if __name__ == "__main__":
     import sys
     wg = WordGenerator()
-    ret = wg.getCandidates(sys.argv[1:], 5000)
+    ret = wg.getCandidates(sys.argv[1:], 500)
     #print("\n".join(ret))
     #print(len(ret))
-    print(ret.pos_tables.keys())
-    print(ret._getCandidates('00', 11, 'n'))
+    #print(ret.pos_tables.keys())
+    #print(ret._getCandidates('00', None, None))

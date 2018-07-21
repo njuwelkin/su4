@@ -35,5 +35,6 @@ for j, c in enumerate(cs):
 print(cs_len, word_len)
 
 coo = sparse.csr_matrix(mat)
+print(1)
 sparse_matrix.save_sparse_csr("./output/w_c.npy", coo)
 
