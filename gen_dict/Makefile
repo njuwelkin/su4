@@ -48,7 +48,7 @@ output/words_3.txt: gen_words.py res/all_songci_cut.txt
 	python gen_words.py 3 2 > output/words_3.txt
 
 output/words_1.txt: gen_words.py res/all_songci_cut.txt
-	python gen_words.py 1 5 > output/words_1.txt
+	python gen_words.py 1 3 > output/words_1.txt
 
 clean:
 	rm output/*
