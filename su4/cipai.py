@@ -3,16 +3,17 @@ import random
 
 fqyb = """
 11/00/0/*0|a
-00/0*/*/00|a
+00/0*/*0/0|a
 00/0*/00/1
 11/00/*/10|a
 """
 
 # n-vi n-vi n ae/v-n
+# n n df vi
 fqyb_grammar = """
-n-vi n-vi n ae
-n n v n
-ns nb a n
+n-vi n-vi n vi/ae
+n n df vi
+sn sb a n
 t n v n
 """
 

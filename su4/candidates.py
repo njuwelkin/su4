@@ -50,18 +50,24 @@ class WordCandidate(object):
 
     def _match_pos(self, req, candidate):
         d = {
-            'n': ['ns', 'nr', 'sn'],
+            'n': ['ns', 'nr', 'sn', 'r'],
             'a': ['ae', 'af', 'an'],
             'ae': ['a'],
-            'af': ['a', 'an'],
-            's': ['ns'],
+            'af': ['a', 'an', 'art'],
+            's': ['ns', 'sn'],
             'w': ['wr', 'ws', 'wt'],
-            'v': ['vi', 'vt'],
+            'v': ['vi', 'vt', 'ae', 'a', 'v'],
             'vi': ['ae', 'a', 'v'],
             'vt': ['v'],
             'n-vi': ['n-a'],
+            'df': ['dv', 'dft', 'p-v'],
+            'wn': ['wr'],
         }
-        return (req == candidate) or ((d.get(req) is not None) and (d[req].count(candidate) > 0))
+        reqs = req.strip().split('/')
+        for r in reqs:
+            if (r == candidate) or ((d.get(r) is not None) and (d[r].count(candidate) > 0)):
+                return True
+        return False
 
     def _getCandidates(self, pz, yun, pos):
         cache_key = "%s_%s_%s" % (pz, yun, pos)
@@ -91,7 +97,9 @@ class WordCandidate(object):
         ret = self._getCandidates(pz, yun, pos)
         #if len(list(ret)) == 0:
         #    print(pz, yun, pos)
-        return list(ret)[random.randint(0, len(ret)-1)]
+        res = list(ret)[random.randint(0, len(ret)-1)]
+        print(pz, yun, pos, len(ret), res)
+        return res
 
     
 

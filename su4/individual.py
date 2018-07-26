@@ -20,7 +20,7 @@ class Individual(object):
             word = candidates.getRandomWord(pz, yun, pos)
             if self.words.get(word) is None:
                 self.words[word] = 1
-            return word
+                return word
         
 
     def __str__(self):
@@ -32,6 +32,6 @@ if __name__ == '__main__':
     from cipai import *
     cp = CiPattern(fqyb, fqyb_grammar)
     wg = WordGenerator()
-    candidates = wg.getCandidates(['龄'], 8000)
+    candidates = wg.getCandidates(['周郎'], 8000)
     indv = Individual(cp, candidates)
     print(indv)
