@@ -15,13 +15,29 @@ all: ../su4/res/words_pzy.txt ../su4/res/w_w.npy.npz
 output/sim.npy.npz:sim_matrix.py output/words_freq.txt res/all_songci_cut.txt
 	python sim_matrix.py
 
+# merge w_w matrix
+output/w_w.npy.npz: merge_matrix.py output/w_w1.npy.npz output/w_w2.npy.npz output/w_w3.npy.npz
+	python merge_matrix.py
+
 # word to word matrix
-output/w_w.npy.npz: calc_cos.py output/w_c.npy.npz
-	python calc_cos.py ./output/w_c.npy.npz ./output/w_w.npy
+output/w_w1.npy.npz: calc_cos.py output/w_c.npy.npz
+	python calc_cos.py ./output/w_c.npy.npz ./output/w_w1.npy
+
+output/w_w2.npy.npz: calc_cos.py output/w_c2.npy.npz
+	python calc_cos.py ./output/w_c2.npy.npz ./output/w_w2.npy
+
+output/w_w3.npy.npz: calc_cos.py output/w_c3.npy.npz
+	python calc_cos.py ./output/w_c3.npy.npz ./output/w_w3.npy
 
 # word to ci matrix
-output/w_c.npy.npz: matrix.py output/words_pzy.txt res/all_songci_cut.txt
+output/w_c.npy.npz: matrix.py output/words_pzy.txt res/all_songci_raw.txt
 	python matrix.py
+
+output/w_c2.npy.npz: matrix2.py output/words_pzy.txt res/all_songci_cut.txt
+	python matrix2.py
+
+output/w_c3.npy.npz: matrix3.py output/words_pzy.txt res/all_songci_cut.txt
+	python matrix3.py
 
 # P Z Y for each word
 output/words_pzy.txt: gen_pzy_dict.py output/char_yun.txt output/char_pz_new.txt output/words_freq.txt
