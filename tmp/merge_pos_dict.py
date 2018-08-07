@@ -1,7 +1,7 @@
 import loader
 
 pzy_dict = loader.loadKeyValue('../gen_dict/output/words_freq.txt')
-pos_dict = loader.loadKeyValues('../su4/res/words_freq.txt')
+pos_dict = loader.loadKeyValues('../su4/res/words_pos.txt')
 
 for w, f in pzy_dict.items():
     s = w + " " + f
