@@ -30,6 +30,9 @@ def loadPZDict(path):
 def loadPZYDict(path):
     return _loadKeyValues(path)
 
+def loadPosDict(path):
+    return _loadKeyValues(path)
+
 def _loadKeyValue(path):
     f = open(path, "r")
     d = {}

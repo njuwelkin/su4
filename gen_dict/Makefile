@@ -1,4 +1,4 @@
-all: ../su4/res/words_pzy.txt ../su4/res/w_w.npy.npz
+all: ../su4/res/words_pzy.txt ../su4/res/w_w.npy.npz ../su4/res/words_pos.txt
 	echo "Done"
 
 # copy to su4 work folder
@@ -10,6 +10,13 @@ all: ../su4/res/words_pzy.txt ../su4/res/w_w.npy.npz
 
 ../su4/res/sim.npy.npz: output/sim.npy.npz
 	cp output/sim.npy.npz ../su4/res/
+
+../su4/res/words_pos.txt: output/words_pos.txt
+	cp output/words_pos.txt ../su4/res/
+
+# merge pos
+output/words_pos.txt: res/words_pos.txt output/words_freq.txt
+	python merge_pos_dict.py > output/words_pos.txt
 
 # sim matrix
 output/sim.npy.npz:sim_matrix.py output/words_freq.txt res/all_songci_cut.txt
