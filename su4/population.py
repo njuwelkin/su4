@@ -11,7 +11,7 @@ class Population(object):
 
         cp = CiPattern(AllPatterns[0])
         wg = WordGenerator()
-        candidates = wg.getCandidates([topic], 8000)
+        candidates = wg.getCandidates([topic], 18000)
 
         self.indvs = []
         for i in range(size):

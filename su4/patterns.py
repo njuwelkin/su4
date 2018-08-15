@@ -17,10 +17,32 @@ AllPatterns = [
             n-vi n-vi n vi/ae
             n n df vi
             sn/n/an/nf sb a n
-            t n v n
+            t n v/pf n/sn/s
+            """,
+        'connection': [
+            ((3, 1), (3, 3))
+            ]
+    },
+    {
+        'name': "",
+        'sample': """
+            大江东去
+            浪淘尽
+            千古风流人物
+            """,
+        'gelv': """
+            10/01
+            1/0*
+            01/00/01
+            """,
+        'grammar': """
+            n vi
+            n vt
+            ml/af/df af n
             """,
         'connection': [
             ((3, 1), (3, 3))
             ]
     }
+
 ]

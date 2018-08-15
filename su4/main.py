@@ -1,9 +1,10 @@
 from population import *
 from roulette_wheel_selection import *
 from uniform_crossover import *
+from mutation import *
 
 if __name__ == '__main__':
-    p = Population(QUANTITY, '周郎')
+    p = Population(QUANTITY, '东风')
     print(p.all_fits())
     print(p.bestIndv())
     print(p.bestIndv().fitness())
@@ -12,7 +13,8 @@ if __name__ == '__main__':
     #print(selection.select(p)[0])
     #print(selection.select(p)[1])
 
-    crossover = UniformCrossover(0.8, 0.2, 0.5)
+    crossover = UniformCrossover(0.7, 0.1, 0.3)
+    mutation = Mutation(0.5)
 
     for gen in range(100):
         best_indv = p.bestIndv().clone()
@@ -27,6 +29,7 @@ if __name__ == '__main__':
         for _ in range(local_size):
             parents = selection.select(p)
             children = crossover.cross(*parents)
+            children = [mutation.mutate(child) for child in children]
             indvs.extend(children)
 
         indvs[0] = best_indv

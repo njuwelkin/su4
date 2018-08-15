@@ -129,25 +129,42 @@ class Individual(object):
         self.f_cache = self.FitnessCache(self, topic)
 
     def update(self, i, j, word=None, refresh=True):
+        oldWord = self.lines[i][j]
+        self.words[oldWord] = 0
+
         if word is None:
             pz, pos, yun = self.pattern.lines[i][j]
             word = self._get_random_word(pz, yun, pos)
         self.lines[i][j] = word
+        self.words[word] = 1
         self.f_cache.update(i, j, refresh)
 
     def evolution(self, i, j):
-        for l in range(1000):
-            oldWord = self.lines[i][j]
+        oldWord = self.lines[i][j]
+        newWord = oldWord
+        pz, pos, yun = self.pattern.lines[i][j]
+        words = self.candidates.getAllWords(pz, yun, pos)
+        #print(words)
+        print(self.words)
+        print(self)
+
+        ret = False
+        for word in words:
+            if self.words.get(word) is None or self.words[word] == 0:
+                self.lines[i][j] = word
+                if self.f_cache.tryUpdate(i, j):
+                    newWord = word
+                    ret = True
+
+        if not ret:
+            self.lines[i][j] = oldWord
+        else:
+            self.lines[i][j] = newWord
+            self.words[newWord] = 1
             self.words[oldWord] = 0
-            pz, pos, yun = self.pattern.lines[i][j]
-            word = self._get_random_word(pz, yun, pos)
-            self.lines[i][j] = word
-            #print(self)
-            print(i, j)
-            print(self.f_cache.fit_array)
-            if self.f_cache.tryUpdate(i, j):
-                return True
-        return False
+            self.f_cache.refresh()
+
+        return ret
 
     def _get_random_word(self, pz, yun, pos):
         while True:
@@ -176,6 +193,7 @@ if __name__ == '__main__':
     print(indv.f_cache.getMinFitWord())
     print(indv.f_cache.getMinFitLine())
     print(indv.f_cache.fit_array)
+    print(indv.words)
     print(indv)
     indv2 = indv.clone()
     print(indv2.f_cache.fit_array)

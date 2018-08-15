@@ -53,7 +53,7 @@ class WordCandidate(object):
             'n': ['ns', 'nr', 'sn', 'r'],
             'a': ['ae', 'af', 'an'],
             'ae': ['a'],
-            'af': ['a', 'an', 'art'],
+            'af': ['a', 'art'],
             's': ['ns', 'sn'],
             'w': ['wr', 'ws', 'wt'],
             'v': ['vi', 'vt', 'ae', 'a', 'v'],
@@ -101,6 +101,9 @@ class WordCandidate(object):
         #print(pz, yun, pos, len(ret), res)
         return res
 
+    def getAllWords(self, pz, yun=None, pos=None):
+        ret = self._getCandidates(pz, yun, pos)
+        return list(ret)
 
 class WordGenerator(object):
     def __init__(self):

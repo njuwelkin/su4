@@ -18,8 +18,8 @@ class UniformCrossover(object):
     def cross(self, father, mother):
         do_cross = True if random.random() <= self.pc else False
 
-        #if not do_cross:
-        #    return father, mother
+        if not do_cross:
+            return father, mother
 
         # Chromsomes for two children.
         ml = father.f_cache.getMinFitLine()
