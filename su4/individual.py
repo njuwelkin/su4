@@ -123,30 +123,40 @@ class Individual(object):
                 line = []
                 for word in cline:
                     line.append(word)
+                    self.words[word] = 1
                 lines.append(line)
 
         self.lines = lines
         self.f_cache = self.FitnessCache(self, topic)
+        self._check()
 
     def update(self, i, j, word=None, refresh=True):
+        if self.words.__contains__(word):
+            return
+
         oldWord = self.lines[i][j]
-        self.words[oldWord] = 0
 
         if word is None:
             pz, pos, yun = self.pattern.lines[i][j]
             word = self._get_random_word(pz, yun, pos)
+        self.words.pop(oldWord)
+
         self.lines[i][j] = word
         self.words[word] = 1
         self.f_cache.update(i, j, refresh)
 
+
+    def _check(self):
+        for line in self.lines:
+            for word in line:
+                a = self.words[word]
+
     def evolution(self, i, j):
+
         oldWord = self.lines[i][j]
         newWord = oldWord
         pz, pos, yun = self.pattern.lines[i][j]
         words = self.candidates.getAllWords(pz, yun, pos)
-        #print(words)
-        print(self.words)
-        print(self)
 
         ret = False
         for word in words:
@@ -160,8 +170,11 @@ class Individual(object):
             self.lines[i][j] = oldWord
         else:
             self.lines[i][j] = newWord
+            if self.words.get(oldWord):
+                self.words.pop(oldWord)
+            else:
+                raise
             self.words[newWord] = 1
-            self.words[oldWord] = 0
             self.f_cache.refresh()
 
         return ret

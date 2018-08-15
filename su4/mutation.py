@@ -19,9 +19,21 @@ class Mutation(object):
         do_mutation = True if random.random() <= self.pm else False
 
         if do_mutation:
-            i = indv.f_cache.getMinFitLine()
-            j = random.randint(0, indv.f_cache.count_lines[i]-1)
-            indv.evolution(i, j)
+            tmp = random.random()
+
+            if tmp < 0.2:
+                i, j = indv.f_cache.getMinFitWord()
+            elif tmp < 0.4:
+                i = indv.f_cache.getMinFitLine()
+                j = random.randint(0, indv.f_cache.count_lines[i]-1)
+            else:
+                i = random.randint(0, len(indv.f_cache.count_lines) - 1)
+                j = random.randint(0, indv.f_cache.count_lines[i]-1)
+
+            if random.random() > 0.7:
+                indv.evolution(i, j)
+            else:
+                indv.update(i, j)
 
         return indv
 

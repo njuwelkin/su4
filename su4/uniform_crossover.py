@@ -30,7 +30,7 @@ class UniformCrossover(object):
                 if do_exchange:
                     tmp = father.lines[i][j]
                     father.update(i, j, mother.lines[i][j], False)
-                    mother.update(i, j, tmp)
+                    mother.update(i, j, tmp, False)
         father.f_cache.refresh()
         mother.f_cache.refresh()
 

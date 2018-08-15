@@ -37,7 +37,8 @@ class RouletteWheelSelection(object):
         # Select a father and a mother.
         father_idx = bisect_right(wheel, random())
         father = population[father_idx]
-        mother_idx = (father_idx + population.size // 2) % len(wheel)
+        #mother_idx = (father_idx + population.size // 2) % len(wheel)
+        mother_idx = (father_idx + 1) % len(wheel)
         mother = population[mother_idx]
 
         population.update()

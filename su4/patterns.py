@@ -38,7 +38,7 @@ AllPatterns = [
         'grammar': """
             n vi
             n vt
-            ml/af/df af n
+            ml/af af n
             """,
         'connection': [
             ((3, 1), (3, 3))
