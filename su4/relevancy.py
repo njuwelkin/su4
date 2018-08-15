@@ -48,7 +48,7 @@ class Relevancy(object):
         w = -np.sort(-w)
         end_idx = np.where(w<=threshold)[0].min()
         return idx[:end_idx]
-        
+
     def get_candidates(self, x, threshold=0, word_len=-1):
         i = self.word_idx.get(x)
         if i is None:

@@ -1,25 +1,12 @@
 import random
+from patterns import AllPatterns
 
-
-fqyb = """
-11/00/0/*0|a
-00/0*/*0/0|a
-00/0*/00/1
-11/00/*/10|a
-"""
-
-# n-vi n-vi n ae/v-n
-# n n df vi
-fqyb_grammar = """
-n-vi n-vi n vi/ae
-n n df vi
-sn sb a n
-t n v n
-"""
 
 MAXYUN = 17
 class CiPattern(object):
-    def __init__(self, gelv, gram, yun_dict={}):
+    def __init__(self, pattern, yun_dict={}):
+        gelv = pattern['gelv']
+        gram = pattern['grammar']
         pzy = []
         for line in gelv.split('\n'):
             line = line.strip()
@@ -62,7 +49,7 @@ class CiPattern(object):
 
 
 if __name__ == '__main__':
-    cp = CiPattern(fqyb, fqyb_grammar)
+    cp = CiPattern(AllPatterns[0])
     print(cp.lines)
     #print(cp.pz_idx)
     #print(cp.pickRandomExchange((0, 1)))

@@ -57,7 +57,7 @@ class WordCandidate(object):
             's': ['ns', 'sn'],
             'w': ['wr', 'ws', 'wt'],
             'v': ['vi', 'vt', 'ae', 'a', 'v'],
-            'vi': ['ae', 'a', 'v'],
+            'vi': ['ae', 'a', 'v', 'v-n'],
             'vt': ['v'],
             'n-vi': ['n-a'],
             'df': ['dv', 'dft', 'p-v'],
@@ -98,10 +98,9 @@ class WordCandidate(object):
         #if len(list(ret)) == 0:
         #    print(pz, yun, pos)
         res = list(ret)[random.randint(0, len(ret)-1)]
-        print(pz, yun, pos, len(ret), res)
+        #print(pz, yun, pos, len(ret), res)
         return res
 
-    
 
 class WordGenerator(object):
     def __init__(self):
