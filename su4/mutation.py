@@ -30,7 +30,7 @@ class Mutation(object):
                 i = random.randint(0, len(indv.f_cache.count_lines) - 1)
                 j = random.randint(0, indv.f_cache.count_lines[i]-1)
 
-            if random.random() > 0.7:
+            if random.random() > 0.8:
                 indv.evolution(i, j)
             else:
                 indv.update(i, j)

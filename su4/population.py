@@ -4,12 +4,12 @@ from candidates import *
 from cipai import *
 
 class Population(object):
-    def __init__(self, size, topic):
+    def __init__(self, size, topic, pattern):
         if size % 2 != 0:
             raise
         self.size = size
 
-        cp = CiPattern(AllPatterns[0])
+        cp = CiPattern(pattern)
         wg = WordGenerator()
         candidates = wg.getCandidates([topic], 18000)
 

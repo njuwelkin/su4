@@ -34,7 +34,7 @@ class Relevancy(object):
         i = self.word_idx.get(x)
         j = self.word_idx.get(y)
         if i is None or j is None:
-            return []
+            return 0
         return self._ww[i, j]
 
     def _get_candidates(self, i, threshold=0, word_len=-1):
