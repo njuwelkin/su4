@@ -22,17 +22,12 @@ def main(topic):
                 while j1 >= 0 and not indv.evolution(i, j1):
                     j1 -= 1
 
-                j2 = j+ 1
+                j2 = j + 1
                 while j2 < indv.f_cache.count_lines[i] and not indv.evolution(i, j2):
                     j2 += 1
 
                 if j1 < 0 and j2 >= indv.f_cache.count_lines[i]:
                     count += 1
-                    #if j != 0:
-                    #    j -= 1
-                    #elif j < indv.f_cache.count_lines[i] - 1:
-                    #    j += 1
-                    #indv.update(i, j, refresh=True)
             else:
                 count = 0
         else:

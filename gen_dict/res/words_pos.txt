@@ -1,6 +1,6 @@
 东风 1191 n
 何处 1059 ws
-人间 1012 s
+人间 1012 n s
 风流 764 n a
 西风 687 n
 春风 677 n
@@ -161,7 +161,7 @@
 只有 188 be c2 pn ?
 酒醒 186 vi n-v zz
 黄金 186 n an nf
-年少 185 a n-a t ?
+年少 185 a t ?
 暗香 184 n
 金缕 184 a an nf
 不管 184 vt c2
@@ -3035,7 +3035,7 @@
 檀心 30 n
 三叠 30 a v
 北窗 30 n sn
-莺莺 30 n a
+莺莺 30 n
 仙去 30 vi n-vi nb-vi
 江流 30 n
 风雪 30 n
@@ -5873,7 +5873,7 @@
 剡溪 16 n sn
 叶落 16 n-a n-v vi zz
 无缘 16 d ae
-心里 16 sn sb
+心里 16 s sb
 长见 16 vt vling
 情思 16 n
 千丝 16 ml
@@ -20127,7 +20127,7 @@
 奈 293 ling ?
 绿 292 v a n
 甚 289 d ?
-玉 282 n an ae vt
+玉 282 n an vt
 柳 277 n an
 说 277 v
 住 276 v
@@ -20666,7 +20666,7 @@
 孤 41 a v df
 堆 41 v nb
 速 41 de ae
-瑞 41 n v
+瑞 41 n ae v
 洲 41 sb nb
 怀 41 vt
 赖 41 vt pv
