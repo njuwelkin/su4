@@ -1,6 +1,6 @@
 MAX_LINE_LEN = 12
 
-W1 = 0.35
+W1 = 0.4
 W2 = 1 - W1
 
 QUANTITY = 200

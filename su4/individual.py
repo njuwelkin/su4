@@ -196,6 +196,12 @@ class Individual(object):
     def clone(self):
         return self.__class__(self.pattern, self.candidates, self.f_cache.topic, self.lines)
 
+    def totalLines(self):
+        return len(self.lines)
+
+    def lineLen(self, i):
+        return self.f_cache.count_lines[i]
+
 if __name__ == '__main__':
     from candidates import *
     from cipai import *
