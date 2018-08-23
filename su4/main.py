@@ -5,9 +5,8 @@ from mutation import *
 
 import sys
 
-def main(topic):
-    print(topic)
-    p = Population(QUANTITY, topic, AllPatterns[1])
+def main(topic, pid):
+    p = Population(QUANTITY, topic, AllPatterns[pid])
 
     selection = RouletteWheelSelection()
 
@@ -16,11 +15,11 @@ def main(topic):
 
     for gen in range(500):
         best_indv = p.bestIndv().clone()
-        #print(gen)
+        print(gen)
         #print(p.all_fits())
-        #print("    max:", best_indv.fitness())
-        #print("    min:", p.worstFit())
-        #print(best_indv)
+        print("    max:", best_indv.fitness())
+        print("    min:", p.worstFit())
+        print(best_indv)
 
         indvs=[]
         local_size = p.size // 2
@@ -33,11 +32,12 @@ def main(topic):
         indvs[0] = best_indv
         p.indvs = indvs
 
+    print("\n\n%s-%s" % (AllPatterns[pid]['name'], topic))
     print(best_indv)
     print(best_indv.fitness())
     print(best_indv.f_cache.fit_array)
 
 if __name__ == '__main__':
-    for i in range(1, len(sys.argv)):
-        topic = sys.argv[i]
-        main(topic)
+    topic = sys.argv[1]
+    pid = int(sys.argv[2]) if len(sys.argv) > 2 else 1
+    main(topic, pid)

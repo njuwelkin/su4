@@ -24,13 +24,19 @@ class UniformCrossover(object):
         # Chromsomes for two children.
         ml = father.f_cache.getMinFitLine()
         for i in range(len(father.f_cache.count_lines)):
-            p = self.pe2 if i == ml else self.pe
-            for j in range(father.f_cache.count_lines[i]):
-                do_exchange = True if random.random() < p else False
-                if do_exchange:
+            if father.f_cache.fit_lines[i] < mother.f_cache.fit_lines[i]:
+                for j in range(father.f_cache.count_lines[i]):
                     tmp = father.lines[i][j]
                     father.update(i, j, mother.lines[i][j], False)
                     mother.update(i, j, tmp, False)
+            else:
+                p = self.pe2 if i == ml else self.pe
+                for j in range(father.f_cache.count_lines[i]):
+                    do_exchange = True if random.random() < p else False
+                    if do_exchange:
+                        tmp = father.lines[i][j]
+                        father.update(i, j, mother.lines[i][j], False)
+                        mother.update(i, j, tmp, False)
         father.f_cache.refresh()
         mother.f_cache.refresh()
 

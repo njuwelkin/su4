@@ -63,7 +63,7 @@ AllPatterns = [
             ]
     },
     {
-        'name': "",
+        'name': "水调歌头",
         'sample': """
             鸟影/度/疏木
             天势/入/平湖
@@ -72,29 +72,33 @@ AllPatterns = [
             渡口/千章/云木
             苒苒/炊烟/一缕
             人在/翠微/居
+            客里/更/愁绝
+            回首/忆/吾庐
             """,
         'gelv': """
             **/*/*1|a
             *1/1/00|a
             *0/*1
             **/*1/10/0|a
-            *1/*0/*1|a
             *1/*0/*1
-            *1/10/0
+            *1/*0/*1|a
+            *1/10/0|a
+            **/*/01
+            *1/1/00|a
             """,
         'grammar': """
             n vt n
             n v sn
-            n ml
+            n ml/ae
             n n n ae
             s af/ml n
             a n ae/ml
             n-p/n-pv s/sn v
+            s/t df/aux ae
+            df/dv vt n/sn
             """,
         'connection': [
             ((3, 1), (3, 3))
             ]
     },
-
-
 ]

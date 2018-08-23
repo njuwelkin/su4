@@ -50,7 +50,7 @@ class WordCandidate(object):
 
     def _match_pos(self, req, candidate):
         d = {
-            'n': ['ns', 'nr', 'sn', 'r'],
+            'n': ['ns', 'sn'],
             'a': ['ae', 'af'],
             'ae': ['a'],
             'af': ['a', 'art'],

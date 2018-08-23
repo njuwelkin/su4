@@ -7,8 +7,8 @@ import random
 import sys
 
 
-def main(topic):
-    cp = CiPattern(AllPatterns[1])
+def main(topic, pid):
+    cp = CiPattern(AllPatterns[pid])
     wg = WordGenerator()
     cand = wg.getCandidates([topic], 18000)
     indv = Individual(cp, cand, topic)
@@ -40,7 +40,7 @@ def main(topic):
     print(indv.f_cache.fit_array)
 
 if __name__ == '__main__':
-    for i in range(1, len(sys.argv)):
-        topic = sys.argv[i]
-        main(topic)
+    topic = sys.argv[1]
+    pid = int(sys.argv[2]) if len(sys.argv) > 2 else 1
+    main(topic, pid)
 
