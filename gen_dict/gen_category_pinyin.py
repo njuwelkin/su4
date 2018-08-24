@@ -1,24 +1,24 @@
 from loader import *
 
 Yun = [
-    ['a', 'ia', 'ua', 'er'],
-    ['o', 'uo'],
-    ['e'],
-    ['v', 'ii'],
-    ['u'],
-    ['ai', 'uai'],
-    ['ei', 'ui'],
-    ['ao', 'iao'],
-    ['ou', 'iu'],
-    ['ie', 'ue', 've'],
-    ['an', 'uan'],
-    ['ian', 'van'],
-    ['en', 'eng'],
-    ['in', 'ing', 'vn'],
-    ['un'],
-    ['ang', 'iang', 'uang'],
-    ['ong', 'iong'],
-    ['i']
+    ['a', 'ia', 'ua', 'er'], # 0
+    ['o', 'uo'], # 1
+    ['e'], # 2
+    ['v', 'ii'], # 3
+    ['u'], # 4
+    ['ai', 'uai'], # 5
+    ['ei', 'ui'], # 6
+    ['ao', 'iao'], # 7
+    ['ou', 'iu'], # 8
+    ['ie', 'ue', 've'], # 9
+    ['an', 'uan'], # 10
+    ['ian', 'van'], # 11
+    ['en', 'eng'], # 12
+    ['in', 'ing', 'vn'], # 13
+    ['un'], # 14
+    ['ang', 'iang', 'uang'], # 15
+    ['ong', 'iong'], # 16
+    ['i'] # 17
 ]
 
 
